@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize, Serializer};
-use toml::value::Table;
-use super::custom_blocks::CustomBlock;
+use super::custom_blocks::AllBlocks;
 
 #[derive(Copy, Clone, Deserialize, Debug)]
 #[serde(from = "&str")]
@@ -19,6 +18,7 @@ impl Default for Color {
 }
 
 //todo make an actual deserializer with better error messages instead of this hack
+//maybe TryFrom trait?
 impl<'a> From<&'a str> for Color {
     fn from(s: &'a str) -> Color {
         assert!(
@@ -35,6 +35,7 @@ impl<'a> From<&'a str> for Color {
     }
 }
 
+#[derive(Debug)]
 pub enum MinWidth<'a> {
     Pixels(u32),
     StringLength(&'a str),
@@ -55,7 +56,7 @@ impl<'a> Serialize for MinWidth<'a> {
     }
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Debug)]
 #[serde(rename_all = "lowercase")]
 pub enum Align {
     Center,
@@ -69,11 +70,11 @@ impl Default for Align {
     }
 }
 
-#[derive(Default, Serialize)]
+#[derive(Default, Serialize, Debug)]
 pub struct BlockOutput<'a> {
     pub name: &'a str,
     pub instance: u32,
-    pub full_text: &'a str,
+    pub full_text: String,
     pub color: Color,
     pub background_color: Color,
     pub border_color: Color,
@@ -93,5 +94,5 @@ pub trait Block/*: From<Table>*/ {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ConfigFile<'a> {
     #[serde(borrow)]
-    pub blocks: Vec<CustomBlock<'a>>,
+    pub blocks: Vec<AllBlocks<'a>>,
 }

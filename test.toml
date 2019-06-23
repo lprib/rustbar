@@ -1,9 +1,17 @@
 [[blocks]]
 type="TextBlock"
-text = "hello"
+text = "hello "
 text_color = "#23984F"
 
 [[blocks]]
+type="Seconds"
+
+[[blocks]]
 type="TextBlock"
-text = "test"
-text_color = "#123345"
+text=" Test text here"
+text_color = "#FF0000"
+
+[[blocks]]
+type="TextBlock"
+text=" kjhasdkjasd"
+text_color = "#0000FF"
