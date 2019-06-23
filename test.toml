@@ -1,0 +1,9 @@
+[[blocks]]
+type="TextBlock"
+text = "hello"
+text_color = "#23984F"
+
+[[blocks]]
+type="TextBlock"
+text = "test"
+text_color = "#123345"
